@@ -1,9 +1,11 @@
+import '/backend/api_requests/api_calls.dart';
+import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
-import '/index.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'setting_model.dart';
@@ -28,6 +30,19 @@ class _SettingWidgetState extends State<SettingWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => SettingModel());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      _model.apiResulttcr = await HealthCall.call();
+
+      if ((_model.apiResulttcr?.succeeded ?? true)) {
+        _model.isBackendOnline = true;
+        safeSetState(() {});
+      } else {
+        _model.isBackendOnline = false;
+        safeSetState(() {});
+      }
+    });
   }
 
   @override
@@ -82,25 +97,23 @@ class _SettingWidgetState extends State<SettingWidget> {
                       EdgeInsetsDirectional.fromSTEB(24.0, 36.0, 24.0, 0.0),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      InkWell(
-                        splashColor: Colors.transparent,
-                        focusColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        onTap: () async {
-                          context.safePop();
-                        },
-                        child: Icon(
+                      FlutterFlowIconButton(
+                        borderRadius: 32.0,
+                        buttonSize: 44.0,
+                        icon: Icon(
                           FFIcons.kcaretBack1,
-                          color: Colors.white,
+                          color: FlutterFlowTheme.of(context).info,
                           size: 28.0,
                         ),
+                        onPressed: () async {
+                          context.safePop();
+                        },
                       ),
                       Flexible(
                         child: Align(
-                          alignment: AlignmentDirectional(0.0, -1.0),
+                          alignment: AlignmentDirectional(0.0, 0.0),
                           child: Text(
                             'Setting',
                             style: FlutterFlowTheme.of(context)
@@ -216,18 +229,13 @@ class _SettingWidgetState extends State<SettingWidget> {
                               ].divide(SizedBox(width: 14.0)),
                             ),
                             Icon(
-                              FFIcons.kwifiReconnect,
-                              color: Color(0xFF00FF00),
-                              size: 23.0,
-                            ),
-                            Icon(
-                              FFIcons.kwifiUnstable,
-                              color: Color(0xFFFEFF00),
-                              size: 23.0,
-                            ),
-                            Icon(
-                              FFIcons.kwifiDisconnect,
-                              color: FlutterFlowTheme.of(context).error,
+                              Icons.signal_cellular_alt_rounded,
+                              color: valueOrDefault<Color>(
+                                _model.isBackendOnline == true
+                                    ? Color(0xFF63FF82)
+                                    : Color(0xFFF84F59),
+                                Colors.white,
+                              ),
                               size: 23.0,
                             ),
                           ],
@@ -269,7 +277,39 @@ class _SettingWidgetState extends State<SettingWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        context.pushNamed(ResourcepageWidget.routeName);
+                        _model.apiResulty59 = await ClearCall.call();
+
+                        if ((_model.apiResulty59?.succeeded ?? true)) {
+                          ScaffoldMessenger.of(context).clearSnackBars();
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                'All response cleared!',
+                                style: TextStyle(
+                                  color: Color(0xFFCAD1D8),
+                                ),
+                              ),
+                              duration: Duration(milliseconds: 2000),
+                              backgroundColor: Color(0xFF282C2C),
+                            ),
+                          );
+                        } else {
+                          ScaffoldMessenger.of(context).clearSnackBars();
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                'Failed to clear response!',
+                                style: TextStyle(
+                                  color: Color(0xFFD0D0D5),
+                                ),
+                              ),
+                              duration: Duration(milliseconds: 2000),
+                              backgroundColor: Color(0xFF282C2C),
+                            ),
+                          );
+                        }
+
+                        safeSetState(() {});
                       },
                       child: Container(
                         width: double.infinity,
