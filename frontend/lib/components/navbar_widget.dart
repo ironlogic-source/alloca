@@ -75,7 +75,16 @@ class _NavbarWidgetState extends State<NavbarWidget> {
                       FFAppState().selectedTab = 'home';
                       safeSetState(() {});
 
-                      context.pushNamed(ResourcepageWidget.routeName);
+                      context.pushNamed(
+                        ResourcepageWidget.routeName,
+                        extra: <String, dynamic>{
+                          '__transition_info__': TransitionInfo(
+                            hasTransition: true,
+                            transitionType: PageTransitionType.fade,
+                            duration: Duration(milliseconds: 0),
+                          ),
+                        },
+                      );
                     },
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
@@ -147,7 +156,16 @@ class _NavbarWidgetState extends State<NavbarWidget> {
                       FFAppState().selectedTab = 'request';
                       safeSetState(() {});
 
-                      context.pushNamed(HelprequestpageWidget.routeName);
+                      context.pushNamed(
+                        HelprequestpageWidget.routeName,
+                        extra: <String, dynamic>{
+                          '__transition_info__': TransitionInfo(
+                            hasTransition: true,
+                            transitionType: PageTransitionType.fade,
+                            duration: Duration(milliseconds: 0),
+                          ),
+                        },
+                      );
                     },
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
@@ -218,7 +236,16 @@ class _NavbarWidgetState extends State<NavbarWidget> {
                       FFAppState().selectedTab = 'dashboard';
                       safeSetState(() {});
 
-                      context.pushNamed(DashboardWidget.routeName);
+                      context.pushNamed(
+                        DashboardWidget.routeName,
+                        extra: <String, dynamic>{
+                          '__transition_info__': TransitionInfo(
+                            hasTransition: true,
+                            transitionType: PageTransitionType.fade,
+                            duration: Duration(milliseconds: 0),
+                          ),
+                        },
+                      );
                     },
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
