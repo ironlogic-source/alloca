@@ -49,7 +49,7 @@ Device A  ──►  Device B  ──►  Device C  ──►  Responder
    │               │
    │         Gemini Triage
    │         Priority: HIGH 🔴
-   │         Summary: "Broken leg + needs water"
+   │         Summary: "Flood coming, need evacuation now"
    └─────────────────────────────────────────────────►
 ```
 
@@ -66,7 +66,7 @@ Every incoming request is instantly analysed and categorised:
 
 | Priority | Example | Action |
 |---|---|---|
-| 🔴 **HIGH** | "Broken leg, trapped under debris" | Express Lane — maximum hop speed |
+| 🔴 **HIGH** | "Flood coming, need evacuation now" | Express Lane — maximum hop speed |
 | 🟡 **MEDIUM** | "Need food for 3 people" | Normal relay queue |
 | 🟢 **LOW** | "Looking for blankets" | Throttled — saves bandwidth |
 
